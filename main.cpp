@@ -1,37 +1,16 @@
 #include <iostream>
-#include <assert.h>
-#include "TelCoColorCoder.h"
-
-void testNumberToPair(int pairNumber,
-    TelCoColorCoder::MajorColor expectedMajor,
-    TelCoColorCoder::MinorColor expectedMinor)
-{
-    TelCoColorCoder::ColorPair colorPair =
-        TelCoColorCoder::GetColorFromPairNumber(pairNumber);
-    std::cout << "Got pair " << colorPair.ToString() << std::endl;
-    assert(colorPair.getMajor() == expectedMajor);
-    assert(colorPair.getMinor() == expectedMinor);
-}
-
-void testPairToNumber(
-    TelCoColorCoder::MajorColor major,
-    TelCoColorCoder::MinorColor minor,
-    int expectedPairNumber)
-{
-    int pairNumber = TelCoColorCoder::GetPairNumberFromColor(major, minor);
-    std::cout << "Got pair number " << pairNumber << std::endl;
-    assert(pairNumber == expectedPairNumber);
-}
+#include "ColorPair.h"
+#include "ColorCodingManual.h"
+#include "ColorCoderTests.h"
 
 int main() {
-    testNumberToPair(4, TelCoColorCoder::WHITE, TelCoColorCoder::BROWN);
-    testNumberToPair(5, TelCoColorCoder::WHITE, TelCoColorCoder::SLATE);
+    // Print the color coding reference manual
+    std::cout << TelCoColorCoder::FormatColorCodingManual() << std::endl;
 
-    testPairToNumber(TelCoColorCoder::BLACK, TelCoColorCoder::ORANGE, 12);
-    testPairToNumber(TelCoColorCoder::VIOLET, TelCoColorCoder::SLATE, 25);
+    TestColorMapper();
+    TestColorCodingManual();
 
-    std::cout << "\nColor Code Reference Manual:\n";
-    std::cout << TelCoColorCoder::GetColorCodeReferenceManual();
+    std::cout << "All tests passed successfully!\n";
 
     return 0;
 }
